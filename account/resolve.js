@@ -1,6 +1,3 @@
-// const express = require('express');
-// const app = express()
-
 const http = require('https');
 require('dotenv').config()
 // environment Variables 
@@ -57,14 +54,3 @@ fetchData()
 } catch (error) {
     console.log(error);
 }
-
-
-// app.all("*", (req, res) => {
-//     res.json({
-//         message: "Just like that? You totally missed your way 🤣😂😂"
-//     })
-// })
-// port = PORT || 3000
-// app.listen(port, () => {
-//     console.log(`App listening on port ${port}`);
-// })
