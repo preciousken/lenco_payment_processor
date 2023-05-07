@@ -2,3 +2,5 @@
 ## resolve
 ## banks
 ## account
+## account/:id
+## account_balance
