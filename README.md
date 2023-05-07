@@ -4,3 +4,4 @@
 ## account
 ## account/:id
 ## account_balance
+## recipients (for getting details of recipients)
