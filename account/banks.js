@@ -1,27 +1,49 @@
-require('dotenv').config()
 const http = require('https');
-
+require('dotenv').config()
 // environment Variables 
-const { LENCO_API_KEY, LENCO_PUBLIC_KEY, LENCO_BASEURL } = process.env
+const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
 
-const axios = require('axios');
 
-const options = {
-  method: 'GET',
-  url: LENCO_BASEURL,
-  headers: {
-    "accept": 'application/json',
-    "Authorization": 'Bearer '+LENCO_API_KEY
-  }
-};
 
-axios
-  .request(options)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
+const fetchData = async (req, res) => {
+
+    const options = {
+        method: 'GET',
+        hostname: LENCO_HOSTNAME,
+        port: null,
+        path: '/access/v1/banks',
+        headers: {
+            accept: 'application/json',
+            Authorization: `Bearer ${LENCO_API_KEY}`
+        }
+    };
+
+    return ((resolve, reject) => {
+        const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on('data', function (chunk) {
+                chunks.push(chunk);
+            });
+
+            res.on('end', function () {
+                const body = Buffer.concat(chunks);
+                //   console.log(body.toString());
+                resolve(body.toString())
+            });
+        });
+        req.on('error',(error)=>{
+            reject(error)
+        })
+        req.end();
+    })
+}
+
+fetchData()
+.then((data)=>{
+    console.log(data);
+}).catch((error)=>{
     console.error(error);
-  });
+})
