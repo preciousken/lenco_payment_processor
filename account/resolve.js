@@ -20,7 +20,7 @@ const fetchData = async (req, res) => {
             Authorization: `Bearer ${LENCO_API_KEY}`
         }
     };
-
+    
     return new Promise((resolve, reject) => {
         const req = http.request(options, function (res) {
             const chunks = [];
