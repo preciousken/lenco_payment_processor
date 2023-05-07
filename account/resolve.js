@@ -1,17 +1,20 @@
 const http = require('https');
 require('dotenv').config()
 // environment Variables 
-const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
+const { LENCO_HOSTNAME, LENCO_API_KEY,BANK_CODE,ACCOUNT_NUMBER } = process.env
 
 
-
+//>>>>>> Verify/resolve account details
 try {
+
+    const bankCode = BANK_CODE
+    const accountNumber = ACCOUNT_NUMBER
     
 const options = {
     method: 'GET',
     hostname: LENCO_HOSTNAME,
     port: null,
-    path: '/access/v1/resolve',
+    path: `/access/v1/resolve?accountNumber=${accountNumber}&bankCode=${bankCode}`,
     headers: {
         accept: 'application/json',
         Authorization: `Bearer ${LENCO_API_KEY}`
