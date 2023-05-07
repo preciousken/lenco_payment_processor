@@ -50,3 +50,25 @@ try {
 } catch (error) {
     console.log(error);
 }
+
+
+
+
+// /<<<<<<<<<<<<<<<<<   SAMPLE RESPONSE STARTS   >>>>>>>>>>>>>>>>>>>>>
+// {
+//     "status": true,
+//     "message": "Success",
+//     "data": {
+//       "id": "fa916f4d-e1dd-4b56-9ce8-6e2a4bbd42d5",          <<----THAT'S THE RECIPIENT ID
+//       "name": "Shalewa Elizabeth",
+//       "currency": "NGN",
+//       "bankAccount": {
+//         "accountName": "Shalewa Elizabeth",
+//         "accountNumber": "8144374977",
+//         "bank": {
+//           "code": "000014",
+//           "name": "ACCESS BANK"
+//         }
+//       }
+//     }
+// /<<<<<<<<<<<<<<<<<   SAMPLE RESPONSE ENDS   >>>>>>>>>>>>>>>>>>>>>
