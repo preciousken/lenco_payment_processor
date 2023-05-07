@@ -47,7 +47,6 @@ try {
         console.log(err);
     })
 
-
 } catch (error) {
     console.log(error);
 }
