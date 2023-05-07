@@ -1,7 +1,7 @@
 const http = require('https');
 require('dotenv').config()
 // environment Variables 
-const { LENCO_HOSTNAME, LENCO_API_KEY,BANK_CODE,ACCOUNT_NUMBER,ACCOUNT_UUID } = process.env
+const { LENCO_HOSTNAME, LENCO_API_KEY,BANK_CODE,ACCOUNT_NUMBER,LENCO_ACCOUNT_UUID } = process.env
 
 
 //>>>>>> Retrieve account balance of a specific bank account
@@ -10,7 +10,7 @@ const options = {
   method: 'GET',
   hostname: LENCO_HOSTNAME,
   port: null,
-  path: `/access/v1/account/${ACCOUNT_UUID}/balance`,
+  path: `/access/v1/account/${LENCO_ACCOUNT_UUID}/balance`,
   headers: {
     accept: 'application/json',
     Authorization: `Bearer ${LENCO_API_KEY}`
