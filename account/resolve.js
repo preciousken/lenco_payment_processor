@@ -8,31 +8,31 @@ const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
 
-
-const fetchData = async (req, res) => {
-    const options = {
-        method: 'GET',
-        hostname: LENCO_HOSTNAME,
-        port: null,
-        path: '/access/v1/resolve',
-        headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${LENCO_API_KEY}`
-        }
-    };
+try {
     
+const options = {
+    method: 'GET',
+    hostname: LENCO_HOSTNAME,
+    port: null,
+    path: '/access/v1/resolve',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${LENCO_API_KEY}`
+    }
+};
+
+const fetchData = () => {
+
     return new Promise((resolve, reject) => {
         const req = http.request(options, function (res) {
-            const chunks = [];
+            let data = '';
 
             res.on('data', function (chunk) {
-                chunks.push(chunk);
+                data += chunk;
             });
 
             res.on('end', function () {
-                const body = Buffer.concat(chunks);
-                // console.log(body.toString());
-                resolve(body.toString())
+                resolve(JSON.parse(data));
             });
         });
 
@@ -47,11 +47,16 @@ const fetchData = async (req, res) => {
 fetchData()
     .then((data)=>{
         console.log(data);
+        return;
     })
     .catch((error)=>{
         console.error(error);
+        return;
     });
 
+} catch (error) {
+    console.log(error);
+}
 
 
 // app.all("*", (req, res) => {

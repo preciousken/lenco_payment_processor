@@ -30,7 +30,6 @@ const fetchData = async (req, res) => {
 
             res.on('end', function () {
                 const body = Buffer.concat(chunks);
-                //   console.log(body.toString());
                 resolve(body.toString())
             });
         });

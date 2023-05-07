@@ -1,20 +1,21 @@
-require('dotenv').config()
+// const express = require('express');
+// const app = express()
+
 const http = require('https');
-
+require('dotenv').config()
 // environment Variables 
-const { LENCO_API_KEY, LENCO_PUBLIC_KEY, LENCO_BASEURL } = process.env
+const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
-
-// (1) Retrieve information about your bank accounts
 
 const options = {
   method: 'GET',
-  hostname: 'https://sandbox.lenco.co',
+  hostname: 'api.lenco.ng',
   port: null,
-  path: '/access/v1',
+  path: '/access/v1/accounts',
   headers: {
-    'Authorization': 'Bearer ' + LENCO_API_KEY
+    accept: 'application/json',
+    Authorization: 'Bearer xo+CAiijrIy9XvZCYyhjrv0fpSAL6CfU8CgA+up1NXqK'
   }
 };
 
@@ -32,51 +33,3 @@ const req = http.request(options, function (res) {
 });
 
 req.end();
-
-
-
-
-// SAMPLE RESPONSE HERE
-// response = 
-// {
-//   "status": true,
-//   "message": "Success",
-//   "data": [
-//     {
-//       "id": "056ffebf-812a-433a-83a0-9c67cd8c089c",
-//       "name": "OGAVENUE- DISBURSEMENT 2",
-//       "currency": "NGN",
-//       "bankAccount": {
-//         "accountName": "OGAVENUE- DISBURSEMENT 2",
-//         "accountNumber": "0000000076",
-//         "bank": {
-//           "code": "000023",
-//           "name": "PROVIDUS BANK"
-//         }
-//       },
-//       "type": "Lenco Current",
-//       "status": "active",
-//       "availableBalance": "0.00",
-//       "currentBalance": "0.00",
-//       "createdAt": "2021-03-30T13:30:58.171Z"
-//     },
-//     {
-//       "id": "cdfc21ce-7424-4b71-bbc8-321c82b309fc",
-//       "name": "OGAVENUE- DISBURSEMENT 1",
-//       "currency": "NGN",
-//       "bankAccount": {
-//         "accountName": "OGAVENUE- DISBURSEMENT 1",
-//         "accountNumber": "0000000077",
-//         "bank": {
-//           "code": "000023",
-//           "name": "PROVIDUS BANK"
-//         }
-//       },
-//       "type": "Lenco Current",
-//       "status": "active",
-//       "availableBalance": "99995404316.07",
-//       "currentBalance": "99995404316.07",
-//       "createdAt": "2021-03-30T13:30:58.218Z"
-//     }
-//   ]
-// }
