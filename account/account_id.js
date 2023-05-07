@@ -1,39 +1,50 @@
+// const express = require('express');
+// const app = express()
+
+const http = require('https');
 require('dotenv').config()
-const http = require('https');
-
 // environment Variables 
-const { LENCO_API_KEY, LENCO_PUBLIC_KEY, LENCO_BASEURL } = process.env
+const { LENCO_HOSTNAME, LENCO_API_KEY, ACCOUNT_UUID } = process.env
 
 
-
-// (2) Retrieve information about a specific bank account
-const http = require('https');
-
-const fetchData = async () => {
+//>>>>> Retrieve information about your bank accounts
+try {
+  
 const options = {
-  hostname: 'api.lenco.ng',
-  port: null,
-  path: '/access/v1/account/id',
   method: 'GET',
+  hostname: LENCO_HOSTNAME,
+  port: null,
+  path: `/access/v1/account/${ACCOUNT_UUID}`,
   headers: {
-    Authorization: 'Bearer xo+CAiijrIy9XvZCYyhjrv0fpSAL6CfU8CgA+up1NXqK'
+    accept: 'application/json',
+    Authorization: `Bearer ${LENCO_API_KEY}`
   }
 };
 
-return new Promise((resolve,reject)=>{
-  const req = http.request(options, function (res) {
-    const chunks = [];
-  
-    res.on('data', function (chunk) {
-      chunks.push(chunk);
+const fetchData = () =>{
+  return new Promise((resolve,reject)=>{
+    const req = http.request(options, function (res) {
+     let data = '';
+    
+      res.on('data', function (chunk) {
+        data+=chunk;
+      });
+    
+      res.on('end', function () {
+        resolve(JSON.parse(data))
+      });
     });
-  
-    res.on('end', function () {
-      const body = Buffer.concat(chunks);
-      console.log(body.toString());
-    });
-  });
-  
-  req.end();
+    req.on('error',(error)=>{
+      reject(error);
+    })
+    req.end();
+  })
+}
+fetchData().then(res=>{
+  console.log(res);
+}).catch(err=>{
+  console.log(err);
 })
-};
+} catch (error) {
+  console.error(error);
+}

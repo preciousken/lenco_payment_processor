@@ -6,6 +6,7 @@ const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
 
+//>>>>>> Get list of banks and financial institutions
 try {
 
     const options = {

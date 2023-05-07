@@ -7,7 +7,7 @@ require('dotenv').config()
 const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
-
+//>>>>> Retrieve information about your bank accounts
 try {
 const options = {
   method: 'GET',
