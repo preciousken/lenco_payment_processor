@@ -8,28 +8,47 @@ const { LENCO_HOSTNAME, LENCO_API_KEY, PORT } = process.env
 
 
 
+try {
 const options = {
   method: 'GET',
-  hostname: 'api.lenco.ng',
+  hostname: LENCO_HOSTNAME,
   port: null,
   path: '/access/v1/accounts',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer xo+CAiijrIy9XvZCYyhjrv0fpSAL6CfU8CgA+up1NXqK'
+    Authorization: `Bearer ${LENCO_API_KEY}`
   }
 };
 
-const req = http.request(options, function (res) {
-  const chunks = [];
+const fetchData = ()=>{
+  return new Promise((resolve,reject)=>{
+    const req = http.request(options, function (res) {
+      let data = '';
+    
+      res.on('data', function (chunk) {
+        data += chunk;
+      });
+    
+      res.on('end', function () {
+       resolve(JSON.parse(data))
+      });
+    });
+    req.on('error',(error)=>{
+      reject(error)
+    })
+    
+    req.end();
+  })
+}
 
-  res.on('data', function (chunk) {
-    chunks.push(chunk);
-  });
+fetchData().then(res=>{
+  console.log(res);
+  return;
+}).catch(err=>{
+  console.log(err);
+  return;
+})
 
-  res.on('end', function () {
-    const body = Buffer.concat(chunks);
-    console.log(body.toString());
-  });
-});
-
-req.end();
+} catch (error) {
+  console.log(error);
+}
