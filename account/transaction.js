@@ -54,11 +54,11 @@ try {
         })
     }
     fetchData().then((data) => {
-        console.log(data);
+        console.log(data);     ////NOTE THE ClientReference is unique
     }).catch((err) => {
         console.log(err);
     })
 
 } catch (error) {
-    console.log(error);////NOTE THE ClientReference is unique
+    console.log(error);
 }
