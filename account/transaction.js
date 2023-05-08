@@ -21,7 +21,7 @@ try {
             Authorization: `Bearer ${LENCO_API_KEY}`
         }
     };
-    
+
     const fetchData = () => {
         return new Promise((resolve, reject) => {
 
