@@ -1,20 +1,15 @@
-// const express = require('express');
-// const app = express()
-
 const http = require("https");
 require("dotenv").config();
-// environment Variables
-const { LENCO_HOSTNAME, LENCO_API_KEY, LENCO_ACCOUNT_UUID } = process.env;
 
-//>>>>> Retrieve information about a specific bank account
 try {
   const options = {
-    method: "GET",
+    method: "POST",
     hostname: LENCO_HOSTNAME,
     port: null,
-    path: `/access/v1/account/${LENCO_ACCOUNT_UUID}`,
+    path: "/access/v1/bills",
     headers: {
       accept: "application/json",
+      "content-type": "application/json",
       Authorization: `Bearer ${LENCO_API_KEY}`,
     },
   };
@@ -22,7 +17,7 @@ try {
   const fetchData = () => {
     return new Promise((resolve, reject) => {
       const req = http.request(options, function (res) {
-        let data = "";
+        const data = "";
 
         res.on("data", function (chunk) {
           data += chunk;
@@ -35,6 +30,7 @@ try {
       req.on("error", (error) => {
         reject(error);
       });
+
       req.end();
     });
   };
@@ -46,5 +42,5 @@ try {
       console.log(err);
     });
 } catch (error) {
-  console.error(error);
+  console.log(error);
 }
