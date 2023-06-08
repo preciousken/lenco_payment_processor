@@ -28,7 +28,7 @@ app.get("/", async (req, res) => {
           res.on("end", function () {
             const body = Buffer.concat(chunks);
             resolve(body.toString());
-          }); //
+          }); //g
         });
 
         req.on("error", (error) => {
@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
     fetchData()
       .then((result) => {
         response = result;
-        res.status(200).send(response);
+        res.status(200).send(JSON.parse(response));
       })
       .catch((error) => {
         console.error(error);
