@@ -3,10 +3,34 @@ const express = require("express");
 const app = express();
 const http = require("https");
 
+app.use(express.json());
+
 app.get("/lookup", async (req, res) => {
   let response;
   try {
-    const http = require("https");
+    // getting the form Data
+    const body = req.body;
+
+    // handling errors in the request object
+    if (!body.productId) {
+      error = "DATA_ERROR";
+      res.status(400).json({
+        status: false,
+        message: "Please select a product",
+        error: error,
+      });
+      return;
+    }
+
+    if (!body.customerId) {
+      (error = "DATA_ERROR"),
+        res.status(400).json({
+          status: false,
+          message: "Please provide a valid identifier",
+          error: error,
+        });
+      return;
+    }
 
     const options = {
       method: "GET",
@@ -19,7 +43,7 @@ app.get("/lookup", async (req, res) => {
         body.customerId,
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${process.env.LENCO_API_KEY}`,
+        Authorization: `Bearer ${LENCO_API_KEY}`,
       },
     };
 
